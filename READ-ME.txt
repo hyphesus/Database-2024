@@ -1,11 +1,70 @@
-  =>  Template Name    : EShopper - Bootstrap Shop Template
+ÖDEV DETAYLARI
 
-  =>  Template Link    : https://htmlcodex.com/bootstrap-shop-template
+Tasarlayacak oldugunuz e-ticaret sitesinde göz önünüze almanız gereken durumlar aşağıda listelenmiştir
 
-  =>  Template License : https://htmlcodex.com/license (or read the LICENSE.txt file)
+1. **Ürünleri İnceleme:**
+- Ürün detaylarına bakma
+- Ürün resimlerini görüntüleme
+- Ürün yorumlarını okuma
 
-  =>  Template Author  : HTML Codex
+2. **Ürünleri Sepete Ekleme:**
+- Ürünü sepete ekleme
+- Sepet içeriğini görüntüleme
+- Ürün sayısını ve özelliklerini seçme
 
-  =>  Author Website   : https://htmlcodex.com
+3. **Sepeti Güncelleme:**
+- Ürün sayısını güncelleme
+- Ürünü sepette silme
+- Sepeti boşaltma
 
-  =>  About HTML Codex : HTML Codex is one of the top creators and publishers of Free HTML templates, HTML landing pages, HTML email templates and HTML snippets in the world. Read more at ( https://htmlcodex.com/about-us )
+4. **Satın Alma İşlemleri:**
+- Kargo ve teslimat seçeneklerini belirleme
+- Ödeme yöntemini seçme
+- Siparişi onaylama
+
+5. **Hesap Yönetimi:**
+- Kullanıcı girişi yapma
+- Kullanıcı hesap bilgilerini güncelleme
+- Şifre değiştirme
+
+6. **Sipariş Takibi:**
+- Sipariş durumunu kontrol etme
+- Sipariş geçmişini görüntüleme
+
+7. **İndirim ve Kampanyalar:**
+- İndirim kuponu kullanma
+- Kampanyalı ürünleri görüntüleme
+
+8. **Müşteri Destek:**
+- Canlı destek hizmetini kullanma
+- İletişim formu aracılığıyla soru sorma
+
+9. **Ürün Karşılaştırma:**
+- Ürünleri karşılaştırma
+- Karşılaştırma sonuçlarını kaydetme
+
+	1	**Yorum Ekleme:**
+- Kullanıcıların ürünler hakkında yazılı yorum eklemelerine izin verme.
+- Kullanıcılara, diğer müşterilerin yazdığı yorumları görüntüleme olanağı tanıma.
+
+	1	**Yorumları Değerlendirme:**
+- Diğer kullanıcıların yorumlarına oy verme veya yıldız değerlendirmesi yapma imkanı sunma.
+
+12. **Yorumları Filtreleme:**
+- Yorumları, en yeni, en yüksek puan alan veya en faydalı olanlar gibi kriterlere göre filtreleme.
+
+13. **Yorumlara Yanıt Verme:**
+- Mağaza sahibinin veya destek ekibinin kullanıcı yorumlarına yanıt verme yeteneği.
+
+14. **Doğrulama ve Güvenilirlik:**
+- Yorumları doğrulamak ve güvenilirliği artırmak için kullanıcıların gerçek hesapları üzerinden yorum yapmalarını sağlama.
+
+15. **Ürün İnceleme İstatistikleri:**
+- Ürün sayfalarında toplam yorum sayısı, ortalama puan gibi istatistikleri gösterme.
+
+	1	Geliştirilen arabirimin etkinliği (10 puan)
+
+Diğer tüm maddeler eş değer puana sahiptir. Her madde 6 ile puanlandırılacaktır. Projede gerçekleştirilen sitenin görseli kapak sayfası olan raporunuzda, veritabanı tasarımını vermeniz ve kullanıcı arabirimi hakkında bilgilendirme yapmanız beklenmektedir. Rapor vermeyen öğrencilerin puanı 30 puan aşağı çekilecektir.
+
+
+iPhone’umdan gönderildi
