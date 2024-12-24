@@ -69,10 +69,10 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- Add this dependency for SQL Server -->
-		<dependency> 
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<version>10.2.0.jre17</version> <!-- or any latest stable version -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version> <!-- Replace with the latest version -->
 		</dependency>
 		<!-- Dependency for mssql ends here -->
 		<!-- Spring Security -->
