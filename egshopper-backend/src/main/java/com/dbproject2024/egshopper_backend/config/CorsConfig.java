@@ -12,7 +12,8 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://127.0.0.1:8081"); // Any additional origins (e.g., plain localhost)
+        config.addAllowedOrigin(
+                "http://127.0.0.1:8081"); // Any additional origins (e.g., plain localhost)
         config.addAllowedHeader("*"); // Allow all headers
         config.addAllowedMethod("POST"); // Allow all HTTP methods (GET, POST, etc.)
         config.setAllowCredentials(true); // Allow cookies if needed

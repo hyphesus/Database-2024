@@ -3,16 +3,13 @@ package com.dbproject2024.egshopper_backend.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-// Import the new method
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-// Import new classes for configuring HTTP security
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-// Import the filter
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,9 +17,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.dbproject2024.egshopper_backend.security.JwtAuthenticationFilter;
 import com.dbproject2024.egshopper_backend.service.UserDetailsServiceImpl;
 
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Arrays;
+
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity // Enables method-level security annotations like @PreAuthorize
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -43,10 +46,44 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
-    // Define SecurityFilterChain with updated methods
+    // Define CORS configuration source
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // Add allowed origins
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:8081",
+                "http://localhost:8080",
+                "http://192.168.0.101:8081",
+                "http://192.168.0.101:8080"));
+
+        // Allow specific HTTP methods
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // Allow specific headers
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
+        // Allow credentials (e.g., cookies, authorization headers)
+        configuration.setAllowCredentials(true);
+
+        // Set the max age for preflight requests
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        // Apply CORS settings to all endpoints
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+    }
+
+    // Define SecurityFilterChain with updated methods and CORS configuration
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                // Enable CORS with the defined configuration
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 // Disable CSRF since we're using JWT
                 .csrf(csrf -> csrf.disable())
                 // Set session management to stateless

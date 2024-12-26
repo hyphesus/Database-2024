@@ -9,14 +9,19 @@ function handleLogin(event) {
         alert('Lütfen tüm alanları doldurun!');
         return;
     }
+    const cors = require("cors");
+    app.use(cors());
 
     // POST isteği
     fetch('http://localhost:8080/api/auth/login', {
+        mode: 'no-cors',
         method: 'POST',
         headers: {
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
             'Content-Type': 'application/json'
         },
-        mode: 'no-cors',
         body: JSON.stringify({ username: username, password: password })
     })
         .then(response => {
@@ -51,19 +56,22 @@ function handleRegister(event) {
 
     // POST isteği
     fetch('http://localhost:8080/api/auth/register', {
+        mode: 'no-cors',
         method: 'POST',
         headers: {
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ fullName: fullName, email: email, username: username, password: password })
 
     })
         .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                return response.json().then(error => Promise.reject(error));
+            if (!response.ok) {
+                throw response;
             }
+            return response.json();
         })
         .then(data => {
             alert('Kayıt başarılı: ' + JSON.stringify(data));
