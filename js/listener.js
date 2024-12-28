@@ -9,17 +9,11 @@ function handleLogin(event) {
         alert('Lütfen tüm alanları doldurun!');
         return;
     }
-    const cors = require("cors");
-    app.use(cors());
 
     // POST isteği
     fetch('http://localhost:8080/api/auth/login', {
-        mode: 'no-cors',
         method: 'POST',
         headers: {
-            "Access-Control-Allow-Headers": "Content-Type",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ username: username, password: password })
@@ -45,8 +39,8 @@ function handleRegister(event) {
     event.preventDefault(); // Varsayılan form gönderimini engelle
 
     const fullName = document.getElementById('fullName').value.trim();
-    const email = document.getElementById('email').value.trim();
     const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
 
     if (!fullName || !email || !password || !username) {
@@ -56,12 +50,8 @@ function handleRegister(event) {
 
     // POST isteği
     fetch('http://localhost:8080/api/auth/register', {
-        mode: 'no-cors',
         method: 'POST',
         headers: {
-            "Access-Control-Allow-Headers": "Content-Type",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ fullName: fullName, email: email, username: username, password: password })
