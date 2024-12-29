@@ -9,7 +9,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import com.dbproject2024.egshopper_backend.model.User;
 import com.dbproject2024.egshopper_backend.payload.LoginRequest;
 import com.dbproject2024.egshopper_backend.payload.RegisterRequest;
 import com.dbproject2024.egshopper_backend.service.AuthService;

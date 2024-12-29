@@ -1,6 +1,7 @@
 package com.dbproject2024.egshopper_backend.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +24,11 @@ public class CartService {
     @Autowired
     private ProductRepository productRepository;
 
-    /*
-     * 1) "Ürünü sepete ekleme"
+    /**
+     * 1) Add a product to the cart.
      * - The user selects a product, quantity, etc.
-     * - We find or create a Cart (maybe the user's "ACTIVE" cart).
-     * - We add a CartItem linked to that Cart and the chosen Product.
+     * - We find (or create) the Cart by cartId.
+     * - We add or update a CartItem linked to that Cart and the chosen Product.
      */
     public CartItem addProductToCart(Long cartId, Long productId, int quantity)
             throws IllegalArgumentException {
@@ -41,11 +42,10 @@ public class CartService {
                 .orElseThrow(() -> new IllegalArgumentException("Product not found with ID: " + productId));
 
         // 3. Check if this cart already has a CartItem for the same product
-        // so we can update the quantity instead of creating a new one.
         CartItem existingItem = findCartItemByProduct(cart, productId);
 
         if (existingItem != null) {
-            // Increase the quantity
+            // Update (increase) the quantity
             existingItem.setQuantity(existingItem.getQuantity() + quantity);
             return cartItemRepository.save(existingItem);
         } else {
@@ -54,15 +54,14 @@ public class CartService {
             newItem.setCart(cart);
             newItem.setProduct(product);
             newItem.setQuantity(quantity);
-            // Possibly store the price at add time
+            // Optionally store the current product price
             newItem.setPriceAtAddTime(product.getPrice());
             return cartItemRepository.save(newItem);
         }
     }
 
-    /*
+    /**
      * 2) Helper method to find a CartItem in a given Cart by product ID.
-     * We look in the cart's item list for a matching product.
      */
     private CartItem findCartItemByProduct(Cart cart, Long productId) {
         for (CartItem item : cart.getCartItems()) {
@@ -73,9 +72,8 @@ public class CartService {
         return null;
     }
 
-    /*
-     * 3) "Sepeti görüntüleme" and "Sepet içeriğini görüntüleme"
-     * - Return all items in a cart by cartId.
+    /**
+     * 3) Return all items in a cart (view cart contents).
      */
     public List<CartItem> getCartItems(Long cartId) {
         Cart cart = cartRepository.findById(cartId)
@@ -83,17 +81,15 @@ public class CartService {
         return cart.getCartItems();
     }
 
-    /*
-     * 4) "Sepeti Güncelleme"
-     * - Update quantity of a particular cart item.
-     * - If quantity is 0, we might remove the item from the cart.
+    /**
+     * 4) Update quantity of a particular cart item.
+     * If the new quantity <= 0, remove the item.
      */
     public CartItem updateCartItemQuantity(Long cartItemId, int newQuantity) {
         CartItem item = cartItemRepository.findById(cartItemId)
                 .orElseThrow(() -> new IllegalArgumentException("CartItem not found with ID: " + cartItemId));
 
         if (newQuantity <= 0) {
-            // Remove item if the new quantity is 0 or negative
             cartItemRepository.deleteById(cartItemId);
             return null;
         } else {
@@ -102,23 +98,20 @@ public class CartService {
         }
     }
 
-    /*
-     * 5) "Ürünü sepetten silme"
-     * - Directly remove a specific cart item.
+    /**
+     * 5) Remove a specific cart item by its ID.
      */
     public void removeCartItem(Long cartItemId) {
         cartItemRepository.deleteById(cartItemId);
     }
 
-    /*
-     * 6) "Sepeti boşaltma"
-     * - Remove all items from a given cart.
+    /**
+     * 6) Empty an entire cart (remove all items).
      */
     public void emptyCart(Long cartId) {
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new IllegalArgumentException("Cart not found with ID: " + cartId));
 
-        // Remove all items
         List<CartItem> items = cart.getCartItems();
         for (CartItem item : items) {
             cartItemRepository.delete(item);
@@ -127,28 +120,28 @@ public class CartService {
         cartRepository.save(cart);
     }
 
-    /*
-     * 7) (Optional) "getCartById" if you want to retrieve the cart object itself.
+    /**
+     * 7) Get the Cart object itself by ID.
      */
     public Cart getCartById(Long cartId) {
         return cartRepository.findById(cartId).orElse(null);
     }
 
-    /*
-     * 8) "Satın Alma İşlemleri"
-     * - In many designs, you'd create an Order from the Cart items,
-     * then mark the cart as ORDERED. We'll handle actual order creation in
-     * OrderService.
-     * - However, we can do a preliminary step here if you like:
+    /**
+     * 8) "Checkout" the cart by marking it as ORDERED, etc.
      */
     public void checkoutCart(Long cartId) {
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new IllegalArgumentException("Cart not found with ID: " + cartId));
-
-        // Mark the cart as ORDERED
         cart.setStatus("ORDERED");
         cartRepository.save(cart);
-        // Next step: create an "Order" record from these items (we'll do in
-        // OrderService).
+        // Next: create an Order from this cart, if desired.
+    }
+
+    /**
+     * 9) (Optional) Get all carts in the DB (useful for admin or debugging).
+     */
+    public List<Cart> getAllCarts() {
+        return cartRepository.findAll();
     }
 }

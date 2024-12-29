@@ -91,8 +91,9 @@ public class SecurityConfig {
                 // Define authorization rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/products/**").permitAll() // Allow unauthenticated access to auth
-                                                                         // endpoints
+                        .requestMatchers("/api/products/**").permitAll()
+                        .requestMatchers("/api/cart/**").permitAll() // Allow unauthenticated access to auth
+                                                                     // endpoints
                         .requestMatchers("/api/discounts/create").hasRole("ADMIN") // Only admins can create discounts
                         .anyRequest().authenticated() // All other endpoints require authentication
                 )

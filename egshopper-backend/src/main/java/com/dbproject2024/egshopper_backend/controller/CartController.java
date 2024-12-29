@@ -1,11 +1,10 @@
 package com.dbproject2024.egshopper_backend.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.dbproject2024.egshopper_backend.model.Cart;
 import com.dbproject2024.egshopper_backend.model.CartItem;
 import com.dbproject2024.egshopper_backend.service.CartService;
 
@@ -37,6 +36,7 @@ public class CartController {
      * "quantity": 2
      * }
      */
+
     @PostMapping("/add")
     public ResponseEntity<?> addToCart(@RequestBody AddToCartRequest request) {
         try {
@@ -53,15 +53,15 @@ public class CartController {
      * GET /api/cart/{cartId}
      * This endpoint retrieves all items in a user's cart.
      */
-    @GetMapping("/{cartId}")
-    public ResponseEntity<List<CartItem>> viewCart(@PathVariable Long cartId) {
-        try {
-            List<CartItem> items = cartService.getCartItems(cartId);
-            return ResponseEntity.ok(items);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
+    // @GetMapping("/{cartId}")
+    // public ResponseEntity<List<CartItem>> viewCart(@PathVariable Long cartId) {
+    // try {
+    // List<CartItem> items = cartService.getCartItems(cartId);
+    // return ResponseEntity.ok(items);
+    // } catch (IllegalArgumentException e) {
+    // return ResponseEntity.badRequest().build();
+    // }
+    // }
 
     /*
      * 3) "Update Cart Item" button:
