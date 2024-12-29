@@ -17,6 +17,7 @@ public class Product {
 
     // Single image approach
     private String imageUrl;
+    private String category;
 
     /*
      * If we want to store average rating in the product table itself,
@@ -39,6 +40,14 @@ public class Product {
     // Getters & Setters
     public Long getId() {
         return id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getName() {

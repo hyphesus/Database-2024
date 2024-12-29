@@ -18,7 +18,7 @@ import com.dbproject2024.egshopper_backend.service.ProductService;
  *  - Comparing multiple products (#9)
  *  - Possibly updating average rating (#15) 
  */
-
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
