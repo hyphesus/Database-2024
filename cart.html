@@ -358,23 +358,28 @@
         // On page load, fetch the current cart from your backend
         document.addEventListener('DOMContentLoaded', loadCart);
 
-        async function loadCart() {
-
+       async function loadCart() {
             try {
-                // Change the URL to match your back-end cart endpoint
-                const response = await fetch(`http://localhost:8080/api/cart`);
-                const allCarts = await response.json();
-                console.log(allCarts);
+                const response = await fetch('http://localhost:8080/api/cart');
+
+                // Check if the response is ok
                 if (!response.ok) {
-                    throw new Error('Error fetching cart data.');
+                    console.error('Error fetching cart:', response.status);
+                    return;
                 }
 
                 const cartData = await response.json();
-                // Now dynamically build the table rows
-                renderCartItems(cartData);
-            } catch (err) {
-                console.error(err);
-                // Handle errors (e.g., display a message or redirect)
+                console.log(cartData); // Debug log for cart data
+
+                // Handle the cart data (example)
+                if (cartData.length === 0) {
+                    console.log("Cart is empty");
+                    // Update DOM to show empty cart message
+                } else {
+                    // Render cart items in the DOM
+                }
+            } catch (error) {
+                console.error('Error loading cart:', error);
             }
         }
 

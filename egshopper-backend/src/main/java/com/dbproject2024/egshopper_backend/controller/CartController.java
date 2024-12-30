@@ -1,8 +1,12 @@
 package com.dbproject2024.egshopper_backend.controller;
 
+import java.util.List;
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.dbproject2024.egshopper_backend.model.Cart;
 import com.dbproject2024.egshopper_backend.model.CartItem;
@@ -36,6 +40,11 @@ public class CartController {
      * "quantity": 2
      * }
      */
+    @GetMapping("/api/cart")
+    public List<Object> getCartItems() {
+        // Return an empty list if the cart is empty
+        return Collections.emptyList(); // Replace with actual cart data
+    }
 
     @PostMapping("/add")
     public ResponseEntity<?> addToCart(@RequestBody AddToCartRequest request) {
